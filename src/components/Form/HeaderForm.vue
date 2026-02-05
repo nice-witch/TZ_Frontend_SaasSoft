@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {defineEmits} from "vue";
-import Button from 'primevue/button';
-import AddIcon from "@/assets/icons/AddIcon.vue"
+import { defineEmits } from 'vue'
+import Button from 'primevue/button'
+import AddIcon from '@/assets/icons/AddIcon.vue'
 
 const emit = defineEmits<{
   (e: 'addForm'): void
@@ -19,7 +19,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .header-form {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
