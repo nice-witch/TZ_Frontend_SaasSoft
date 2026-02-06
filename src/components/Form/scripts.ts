@@ -15,5 +15,12 @@ export const normalizeMarks = (mark: string) => {
     .map((text) => ({ text }))
 }
 
+const denormalizeMarks = (marks: { text: string }[]): string => marks.map((m) => m.text).join('; ')
+
 export const getLKForm = () => JSON.parse(localStorage.getItem('lkForm') || '[]')
 export const setLKForm = (form) => localStorage.setItem('lkForm', JSON.stringify(form))
+export const mapLKRowToFormRow = (row) => ({
+  ...row,
+  mark: denormalizeMarks(row.mark),
+  errors: {},
+})

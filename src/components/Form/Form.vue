@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import HeaderForm from './HeaderForm.vue'
 import InformationForm from './InformationForm.vue'
@@ -10,6 +10,10 @@ const formStore = useFormStore()
 const { form } = storeToRefs(formStore)
 
 const showPasswordColumn = computed(() => form.value.some((el) => el.selectType !== 'LDAP'))
+
+onMounted(() => {
+  formStore.loadFormFromLK()
+})
 </script>
 
 <template>
@@ -37,7 +41,6 @@ const showPasswordColumn = computed(() => form.value.some((el) => el.selectType 
     @delete="formStore.deleteRow"
     @validate="formStore.validateRow"
   />
-  {{ form }}
 </template>
 
 <style scoped>

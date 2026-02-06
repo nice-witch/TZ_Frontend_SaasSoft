@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { normalizeRow, getLKForm, setLKForm } from '@/components/Form/scripts.ts'
+import { normalizeRow, getLKForm, setLKForm, mapLKRowToFormRow } from '@/components/Form/scripts.ts'
 
 export type RowForm = {
   mark: string
@@ -30,6 +30,11 @@ export const useFormStore = defineStore('Form', () => {
   }
   const deleteRow = (id: number) => {
     form.value = form.value.filter((item) => item.id !== id)
+
+    const lkForm = getLKForm()
+    const updatedLKForm = lkForm.filter((item) => item.id !== id)
+
+    setLKForm(updatedLKForm)
   }
   const changeType = (val: string, id: number) => {
     const idx = form.value.findIndex((item) => item.id === id)
@@ -69,11 +74,17 @@ export const useFormStore = defineStore('Form', () => {
     setLKForm(lkForm)
   }
 
+  const loadFormFromLK = () => {
+    const lkForm = getLKForm()
+    form.value = lkForm.map(mapLKRowToFormRow)
+  }
+
   return {
     form,
     addRow,
     deleteRow,
     changeType,
     validateRow,
+    loadFormFromLK,
   }
 })
