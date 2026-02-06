@@ -34,8 +34,10 @@ const showPasswordColumn = computed(() => form.value.some((el) => el.selectType 
     v-model:password="data.password"
     @update:mark="changeMark"
     @update:selectType="formStore.changeType"
-    @delete="formStore.deleteRow(data.id)"
+    @delete="formStore.deleteRow"
+    @validate="formStore.validateRow"
   />
+  {{ form }}
 </template>
 
 <style scoped>
