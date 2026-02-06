@@ -30,6 +30,10 @@ const emit = defineEmits<{
 }>()
 
 const types = ['LDAP', 'Локальная']
+const changeType = (val: string) => {
+  emit('update:selectType', val, props.id)
+  emit('validate', props.id)
+}
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const types = ['LDAP', 'Локальная']
       :options="types"
       placeholder="Тип записи"
       :invalid="props.errors.selectType"
-      @update:model-value="(val) => emit('update:selectType', val, props.id)"
+      @update:model-value="changeType"
     />
     <InputText
       v-model="props.login"
@@ -60,6 +64,8 @@ const types = ['LDAP', 'Локальная']
       v-model="props.password"
       placeholder="Пароль"
       :invalid="props.errors.password"
+      :feedback="false"
+      toggleMask
       @update:model-value="(val) => emit('update:password', val)"
       @blur="emit('validate', props.id)"
     />
